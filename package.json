@@ -1,0 +1,27 @@
+{
+  "name": "supermarket_item",
+  "version": "1.0.0",
+  "description": "database name - supermarket tables name - item purchase, item sales, price detailsm",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joe-Joy/supermarket-items.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joe-Joy/supermarket-items/issues"
+  },
+  "homepage": "https://github.com/Joe-Joy/supermarket-items#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
