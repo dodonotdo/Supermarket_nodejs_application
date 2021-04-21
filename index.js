@@ -18,7 +18,7 @@ app.use("/item_purchase", item_purchase);
 app.use("/item_sales", item_sales);
 app.use("/price_details", price_details);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
 });
