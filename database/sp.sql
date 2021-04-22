@@ -5,35 +5,27 @@
 */
 
 DELIMITER $$
-CREATE  PROCEDURE get_datas (
-	itemsCode VARCHAR(255),
-    items VARCHAR(255),
-	category VARCHAR(255),
-	item_kg INT
-    
+CREATE  PROCEDURE datas(
+	variety_code VARCHAR(25) ,
+	items_code VARCHAR(25),
+	items_name VARCHAR(255),
+	varietyName VARCHAR(255),
+	items_kg INT
 )
 BEGIN
-    DECLARE balance_kg INT;
-    DECLARE per_item_amount INT;  
-
-    SELECT amount into per_item_amount FROM price_details AS pd where pd.items_code=itemsCode AND pd.pricedate=(SELECT CURRENT_DATE()) ORDER BY id DESC LIMIT 1;
-
-/*    IF (per_item_amount != '') THEN
-        SELECT amount into per_item_amount FROM price_details AS pd where pd.items_code=itemsCode AND pd.pricedate=(SELECT CURRENT_DATE()) ORDER BY id DESC LIMIT 1;
-    ELSE
-        SELECT amount into per_item_amount FROM price_details AS pd where pd.items_code=itemsCode AND pd.pricedate=(SELECT CURRENT_DATE() - 1) ORDER BY id DESC LIMIT 1;
-    END IF;
-*/
-
-    SELECT total_kg into balance_kg FROM item_purchase AS a WHERE a.items=items;
-	
-    UPDATE item_purchase AS c SET c.total_kg=(balance_kg - item_kg) WHERE c.items=items;
+	DECLARE balance_kg INT;
+	DECLARE per_kg_amt INT;
     
-    INSERT INTO item_sales(items_code, items, category, item_kg, per_item_amt, total_item_amt, balance_kg ) VALUES 
-        (itemsCode,items,category,item_kg,per_item_amount,(item_kg * per_item_amount),(balance_kg - item_kg));
+	SELECT total_kg,per_kg_updated_amt into balance_kg,per_kg_amt FROM item_purchased AS a WHERE a.variety_code = variety_code;
+	UPDATE item_purchased SET total_kg=(balance_kg - items_kg) WHERE variety_name=varietyName;
 
-END $$
-DELIMITER ; 
+	INSERT INTO item_sales(items_code, variety_code, items_name, variety_name, items_kg, per_kg_amt, total_kg_amt, balance_kg) 
+    VALUES (items_code, variety_code, items_name, varietyName, items_kg, per_kg_amt, (items_kg * per_kg_amt),(balance_kg - items_kg));
+END$$
+DELIMITER ;	
+
+drop procedure data;
+call datas('RC0R1', 'RC001', 'rice', 'rnr', 10);
 
 
 /*
