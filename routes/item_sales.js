@@ -9,33 +9,12 @@ router.post("/insert", (req, res) => {
   let items_name = req.body.items_name;
   let variety_name = req.body.variety_name;
   let items_kg = req.body.items_kg;
-  var queryOne = `SELECT total_kg,per_kg_updated_amt FROM item_purchased WHERE variety_code = '${variety_code}'`;
+  var queryOne = `call datas('${variety_code}', '${items_code}', '${items_name}', '${variety_name}', ${items_kg})`;
   readSql.query(queryOne, (error, results, fields) => {
     if (error) res.send(error);
-    console.log(results[0].total_kg);
-    let balance_kg = results[0].total_kg - items_kg;
-    let per_kg_amt = results[0].per_kg_updated_amt;
-    var queryTwo = `INSERT INTO item_sales(items_code,variety_code,items_name,variety_name,items_kg,per_kg_amt,total_kg_amt, balance_kg) values ('${items_code}','${variety_code}','${items_name}','${variety_name}','${items_kg}','${per_kg_amt}',('${items_kg}'*'${per_kg_amt}'),'${balance_kg}')`;
-    writeSql.query(queryTwo, (error, results, fields) => {
-      if (error) res.send(error);
-      console.log(results);
-      let queryThree = ` UPDATE item_purchased SET total_kg = '${balance_kg}' WHERE  variety_name='${variety_name}'`;
-      writeSql.query(queryThree, (error, results, fields) => {
-        if (error) res.send(error);
-        let query = `SELECT total_kg FROM items_details WHERE items_name = '${items_name}' `;
-        readSql.query(query, (error, results, fields) => {
-          if (error) res.send(error);
-          let total_kg = results[0].total_kg - items_kg;
-          let queryFour = ` UPDATE items_details SET total_kg = '${total_kg}' WHERE  items_name='${items_name}'`;
-          writeSql.query(queryFour, (error, results, fields) => {
-            if (error) res.send(error);
-            res.send(results);
-          });
-        });
-      });
-    });
 
-
+    res.send("datas")
+    // call datas('RC0R1', 'RC001', 'rice', 'rnr', 10);
   });
 });
 
