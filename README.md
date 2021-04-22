@@ -1,5 +1,5 @@
-database name - supermarket
-tables name - item_purchase, item_sales, price_details
+database name - supermarket_two
+tables name - item_purchaseD, item_sales,items_details
 
 
 ----------

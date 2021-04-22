@@ -1,45 +1,58 @@
 const express = require("express");
 const router = express.Router();
-const writesql = require("../config/writesql");
-const readsql = require("../config/readsql");
+const writeSql = require("../config/writeSql");
+const readSql = require("../config/readSql");
 
-router.post("/insert", (req, res) => {
+// router.post("/insert", (req, res) => {
+//   let items_code = req.body.items_code;
+//   let variety_code = req.body.variety_code;
+//   let items_name = req.body.items_name;
+//   let variety_name = req.body.variety_name;
+//   let items_kg = req.body.items_kg;
+//   let per_kg_amt = req.body.per_kg_amt;
+//   var queryOne = `SELECT total_kg,per_kg_updated_amt FROM item_purchased WHERE variety_code = '${variety_code}'`;
+//   readSql.query(queryOne, (error, results, fields) => {
+//     if (error) res.send(error);
+//     console.log(results[0].total_kg);
+//     let balance_kg = results[0].total_kg - items_kg;
+//     var queryTwo = `INSERT INTO item_sales(items_code,variety_code,items_name,variety_name,items_kg,per_kg_amt,total_kg_amt, balance_kg) values ('${items_code}','${variety_code}','${items_name}','${variety_name}','${items_kg}','${per_kg_amt}',('${items_kg}'*'${per_kg_amt}'),'${balance_kg}')`;
+//     writeSql.query(queryTwo, (error, results, fields) => {
+//       if (error) res.send(error);
+//       console.log(results);
+//       let queryThree = ` UPDATE item_purchased SET total_kg = '${balance_kg}' WHERE  variety_name='${variety_name}'`;
+//       writeSql.query(queryThree, (error, results, fields) => {
+//         if (error) res.send(error);
+//         let query = `SELECT total_kg FROM items_details WHERE items_name = '${items_name}' `;
+//         readSql.query(query, (error, results, fields) => {
+//           if (error) res.send(error);
+//           let total_kg = results[0].total_kg - items_kg;
+//           let queryFour = ` UPDATE items_details SET total_kg = '${total_kg}' WHERE  items_name='${items_name}'`;
+//           writeSql.query(queryFour, (error, results, fields) => {
+//             if (error) res.send(error);
+//             res.send(results);
+//           });
+//         });
+//       });
+//     });
+
+
+//   });
+// });
+
+router.post("/", (req, res) => {
   let items_code = req.body.items_code;
-  let items = req.body.items;
-  let category = req.body.category;
-  let item_kg = req.body.item_kg;
-  let per_item_amt = req.body.per_item_amt;
-  queryOne = `call get_data('${items_code}','${items}','${category}','${item_kg}','${per_item_amt}')`;
-  writesql.query(queryOne, (error, results, fields) => {
-    if (error) throw error;
-    res.send(results);
+  let variety_code = req.body.variety_code;
+  let items_name = req.body.items_name;
+  let variety_name = req.body.variety_name;
+  let items_kg = req.body.items_kg;
+  let per_kg_amt = req.body.per_kg_amt;
+  var queryOne = `SELECT total_kg,per_kg_updated_amt FROM item_purchased WHERE variety_code = '${variety_code}'`;
+  readSql.query(queryOne, (error, results, fields) => {
+    if (error) res.send(error);
+    console.log(results[0].per_kg_updated_amt);
+    res.send(results[0].per_kg_updated_amt);
+    let 
   });
 });
-
-router.post("/inserts", (req, res) => {
-  let items_code = req.body.items_code;
-  let items = req.body.items;
-  let category = req.body.category;
-  let item_kg = req.body.item_kg;
-  let date = "2020-12-25";
-  let query = `SELECT amount FROM price_details WHERE items_code='${items_code}' AND date ='${date}'`;
-  readsql.query(query, (error, results, fields) => {
-    if (error) console.log(error);
-    let per_item_amt = results[0].amount;
-    console.log(per_item_amt)
-    let queryTwo = `SELECT total_kg FROM item_purchase AS a WHERE a.items='${items}'`;
-    readsql.query(queryTwo, (error, resultsOne, fields) => {
-      if (error) console.log(error);
-      let balance_kg = resultsOne[0].total_kg;
-      let queryOne = `INSERT INTO item_sales(items_code, items, category, item_kg, per_item_amt, total_item_amt, balance_kg ) VALUES ('${items_code}','${items}','${category}','${item_kg}','${per_item_amt}','${
-        item_kg * per_item_amt
-      }','${balance_kg - item_kg}')`;
-      writesql.query(queryOne, (error, resultsTwo, fields) => {
-        if (error) console.log(error);
-        res.send(resultsTwo);
-      });
-    });
-  });
-});
-
 module.exports = router;
+

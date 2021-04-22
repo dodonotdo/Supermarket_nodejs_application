@@ -10,15 +10,15 @@ app.use(cookieParser());
 
 const item_purchase = require("./routes/item_purchase");
 const item_sales = require("./routes/item_sales");
-const price_details = require("./routes/price_details");
+const items_details = require("./routes/items_details");
 const index = require("./routes/index");
 
 app.use("/", index);
 app.use("/item_purchase", item_purchase);
 app.use("/item_sales", item_sales);
-app.use("/price_details", price_details);
+app.use("/items_details", items_details);
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 6000;
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
 });

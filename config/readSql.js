@@ -4,10 +4,10 @@ const config = {
   host: "localhost",
   user: "user",
   password: "Password@123",
-  database: "supermarket",
+  database: "supermarket_two",
   dateStrings: true,
-  debug: false,
+  debug: false
 };
 
-var writeConnection = mysql.createPool(config);
-module.exports = writeConnection;
+var readConnection = mysql.createPool(config);
+module.exports = readConnection;
