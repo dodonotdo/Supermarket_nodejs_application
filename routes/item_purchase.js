@@ -10,7 +10,6 @@ router.post("/insert", (req, res) => {
   let total_kg = req.body.total_kg;
   let per_kg_amt = req.body.per_kg_amt;
   var query = `INSERT INTO item_purchased(variety_code, items_name, variety_name, total_kg, per_kg_amt, total_kg_amt, per_kg_updated_amt) VALUES ('${variety_code}','${items_name}','${variety_name}','${total_kg}','${per_kg_amt}',('${per_kg_amt}'*'${total_kg}'),'${per_kg_amt}')`;
-  console.log(query);
   writeSql.query(query, (error, results, fields) => {
     if (error) res.send(error);
     console.log(results);
@@ -34,7 +33,6 @@ router.post("/update", (req, res) => {
   var queryOne = `SELECT total_kg,per_kg_amt FROM item_purchased WHERE variety_name ='${variety_name}'`;
   writeSql.query(queryOne, (error, results, fields) => {
     if (error) res.send(error);
-
     let balance_total_kg = results[0].total_kg;
     let lastTimePurchaseAmt = results[0].per_kg_amt;
     let OldKgAmt = balance_total_kg * lastTimePurchaseAmt;
@@ -42,7 +40,7 @@ router.post("/update", (req, res) => {
     let combinationOldNewAmount = req.body.total_kg * req.body.amt + OldKgAmt;
     var queryTwo = `UPDATE  item_purchased SET total_kg='${total_kg}',per_kg_amt='${req.body.amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${variety_name}'`;
     writeSql.query(queryTwo, (err, resultsTwo, fields) => {
-      if (err) res.send(err);
+      if (err) res.send(err.sqlMessage);;
       res.send(resultsTwo);
     });
   });
