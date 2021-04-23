@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const writeSql = require("../config/writeSql");
-const readSql = require("../config/readSql");
 
 router.post("/insert", (req, res) => {
   let variety_code = req.body.variety_code;

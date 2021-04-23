@@ -3,7 +3,7 @@ CREATE TABLE items_details (
     items_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     items_code VARCHAR(255) NOT NULL,
     items_name VARCHAR(255) NOT NULL,
-    total_kg INT NOT NULL
+    variety_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE item_purchased (
