@@ -12,9 +12,16 @@ router.post("/insert", (req, res) => {
   var queryOne = `call datas('${variety_code}', '${items_code}', '${items_name}', '${variety_name}', ${items_kg})`;
   writeSql.query(queryOne, (error, results, fields) => {
     if (error) res.send(error);
-    res.send("datas")
+    res.send("data inserted successfully");
+  });
+});
+
+router.get("/", (req, res) => {
+  var queryOne = `SELECT * FROM item_sales`;
+  readSql.query(queryOne, (error, results, fields) => {
+    if (error) res.send(error);
+    res.send(results);
   });
 });
 
 module.exports = router;
-

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const writesql = require("../config/writeSql");
+const readSql = require("../config/readSql");
 
 router.post("/insert", (req, res) => {
   let items_code = req.body.items_code;
@@ -12,5 +13,13 @@ router.post("/insert", (req, res) => {
     res.end("data inserted");
   });
 });
+
+router.get("/", (req, res) => {
+  var query = `SELECT * FROM items_details`;
+  readSql.query(query, (error,results, fields)=>{
+    if (error) res.send(error);
+    res.send(results);
+  })
+})
 
 module.exports = router;

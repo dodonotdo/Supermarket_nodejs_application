@@ -11,15 +11,16 @@ CREATE  PROCEDURE datas(
 )
 BEGIN
 	DECLARE remaining_kg INT;
-	DECLARE per_kg_amt INT;
+	DECLARE per_kg_amts INT;
+    DECLARE origin_amt INT;
     
-	SELECT total_kg,per_kg_updated_amt into remaining_kg,per_kg_amt FROM item_purchased AS a WHERE a.variety_code = variety_code;
-	UPDATE item_purchased SET total_kg=(remaining_kg - items_kg) WHERE variety_name=varietyName;
+	SELECT total_kg,per_kg_updated_amt,per_kg_amt into remaining_kg,per_kg_amts,origin_amt FROM item_purchased AS a WHERE a.variety_code = variety_code;
+	UPDATE item_purchased SET total_kg=(remaining_kg - items_kg),total_kg_amt=((remaining_kg - items_kg) * origin_amt) WHERE variety_name=varietyName;
 
 	INSERT INTO item_sales(items_code, variety_code, items_name, variety_name, items_kg, per_kg_amt, total_kg_amt, balance_kg) 
-    VALUES (items_code, variety_code, items_name, varietyName, items_kg, per_kg_amt, (items_kg * per_kg_amt),(remaining_kg - items_kg));
+    VALUES (items_code, variety_code, items_name, varietyName, items_kg, per_kg_amts, (items_kg * per_kg_amts),(remaining_kg - items_kg));
 END$$
-DELIMITER ;	
+DELIMITER ;
 
 -- call the store procedure
 
@@ -29,3 +30,4 @@ call datas('RC0R1', 'RC001', 'rice', 'rnr', 10);
 -- delete store procedure
 
 drop procedure datas;
+
