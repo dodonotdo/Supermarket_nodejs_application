@@ -7,7 +7,7 @@ router.post("/insert", (req, res) => {
   let items_name = req.body.items_name;
   let variety_name = req.body.variety_name;
   let total_kg = req.body.total_kg;
-  let per_kg_amt = req.body.per_kg_amt;yyy
+  let per_kg_amt = req.body.per_kg_amt;
   var query = `INSERT INTO item_purchased(variety_code, items_name, variety_name, total_kg, per_kg_amt, total_kg_amt, per_kg_updated_amt) VALUES ('${variety_code}','${items_name}','${variety_name}','${total_kg}','${per_kg_amt}',('${per_kg_amt}'*'${total_kg}'),'${per_kg_amt}')`;
   console.log(query);
   writeSql.query(query, (error, results, fields) => {
