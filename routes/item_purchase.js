@@ -5,25 +5,16 @@ const readSql = require("../config/readSql");
 const findUndefinedValues = require("../models/findUndefinedValues");
 
 router.post("/insert", (req, res) => {
-  const data = req.body;
-  let variety_code = data.variety_code,
-    items_name = data.items_name,
-    variety_name = data.variety_name,
-    total_kg = data.total_kg,
-    per_kg_amt = data.per_kg_amt;
-
   let undefinedDatas = {
-    variety_code,
-    items_name,
-    variety_name,
-    total_kg,
-    per_kg_amt,
+    variety_code: req.body.variety_code,
+    items_name: req.body.items_name,
+    variety_name: req.body.variety_name,
+    total_kg: req.body.total_kg,
+    per_kg_amt: req.body.per_kg_amt,
   };
-
   finaldatas = findUndefinedValues.findUndefinedValues(undefinedDatas);
-
   if (finaldatas == "") {
-    var query = `call insert_into_twoTables ('${variety_code}','${items_name}','${variety_name}','${total_kg}','${per_kg_amt}')`;
+    var query = `CALL insert_into_twoTables ('${undefinedDatas.variety_code}','${undefinedDatas.items_name}','${undefinedDatas.variety_name}','${undefinedDatas.total_kg}','${undefinedDatas.per_kg_amt}')`;
     writeSql.query(query, (error, results, fields) => {
       if (error) {
         res.send(error);
@@ -36,42 +27,72 @@ router.post("/insert", (req, res) => {
   }
 });
 
+// -----------------------------------------------------------------
+
 router.put("/update_rate", (req, res) => {
-  let variety_code = req.body.variety_code;
-  let per_kg_updated_amt = req.body.per_kg_updated_amt;
-  var query = `UPDATE  item_purchased SET   per_kg_updated_amt='${per_kg_updated_amt}' WHERE variety_code='${variety_code}'`;
-  writeSql.query(query, (error, results, fields) => {
-    if (error) {
-      res.send(error.sql);
-    } else {
-      res.send("data updated successfully");
-    }
-  });
+  let datas = {
+    variety_code: req.body.variety_code,
+    per_kg_updated_amt: req.body.per_kg_updated_amt,
+  };
+  let update_rate_Datas = findUndefinedValues.findUndefinedValues(datas);
+  if (update_rate_Datas == "") {
+    var query = `UPDATE item_purchased SET per_kg_updated_amt='${datas.per_kg_updated_amt}' WHERE variety_code='${datas.variety_code}'`;
+    writeSql.query(query, (error, results, fields) => {
+      if (error) {
+        res.send(error.sql);
+      } else {
+        res.send("data updated successfully");
+      }
+    });
+  } else {
+    res.send("Input Datas Counting Mismatched");
+  }
 });
 
+// -------------------------------------------------------------------
+
 router.post("/update", (req, res) => {
-  let variety_name = req.body.variety_name;
-  var queryOne = `SELECT total_kg,per_kg_amt FROM item_purchased WHERE variety_name ='${variety_name}'`;
-  writeSql.query(queryOne, (error, results, fields) => {
-    if (error) res.send(error);
-    let balance_total_kg = results[0].total_kg;
-    let lastTimePurchaseAmt = results[0].per_kg_amt;
-    let OldKgAmt = balance_total_kg * lastTimePurchaseAmt;
-    let total_kg = req.body.total_kg + balance_total_kg;
-    let combinationOldNewAmount = req.body.total_kg * req.body.amt + OldKgAmt;
-    var queryTwo = `UPDATE  item_purchased SET total_kg='${total_kg}',per_kg_amt='${req.body.amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${variety_name}'`;
-    writeSql.query(queryTwo, (err, resultsTwo, fields) => {
-      if (err) res.send(err.sqlMessage);
-      res.send(resultsTwo);
+  let data = { variety_name: req.body.variety_name,
+    total_kg: req.body.total_kg,
+    total_kg_amt: req.body.total_kg_amt,
+   };
+  let updateDatas = findUndefinedValues.findUndefinedValues(data);
+  if (updateDatas == "") {
+    var queryOne = `SELECT total_kg,per_kg_amt FROM item_purchased WHERE variety_name ='${data.variety_name}'`;
+    writeSql.query(queryOne, (error, results, fields) => {
+      if (error) {
+        res.send(error.sql);
+      } else {
+        let balance_total_kg = results[0].total_kg;
+        let lastTimePurchaseAmt = results[0].per_kg_amt;
+        let OldKgAmt = balance_total_kg * lastTimePurchaseAmt;
+        let new_total_kg = data.total_kg + balance_total_kg;
+        let combinationOldNewAmount = data.total_kg * data.total_kg_amt + OldKgAmt;
+        var queryTwo = `UPDATE  item_purchased SET total_kg='${new_total_kg}',per_kg_amt='${data.total_kg_amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${data.variety_name}'`;
+        writeSql.query(queryTwo, (err, resultsTwo, fields) => {
+          if (err) {
+            res.send(err.sqlMessage);
+          } else {
+            res.send(resultsTwo);
+          }
+        });
+      }
     });
-  });
+  } else {
+    res.send("Input Datas Counting Mismatched");
+  }
 });
+
+// ---------------------------------------------------
 
 router.get("/", (req, res) => {
   var query = `SELECT * FROM item_purchased`;
   readSql.query(query, (error, results, fields) => {
-    if (error) res.send(error);
-    res.send(results);
+    if (error) {
+      res.send(error.sqlMessage);
+    } else {
+      res.send(results);
+    }
   });
 });
 
