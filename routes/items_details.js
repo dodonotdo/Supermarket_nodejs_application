@@ -6,6 +6,10 @@ const fuv = require("../helpers/findUndefinedValues");
 
 
 router.get("/", (req, res) => {
+  res.send({ success: true, message: "items inserted!" })
+});
+
+router.get("/data", (req, res) => {
   var query = `SELECT * FROM items_details`;
   readSql.query(query, (error, results, fields) => {
     return error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code.toLowerCase() });

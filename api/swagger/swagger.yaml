@@ -1,15 +1,138 @@
 ---
 swagger: "2.0"
 info:
-  title: supermarket
-  version: 1.0.0
-host: localhost:4000
-basePath: /
+  version: "1.0.0"
+  title: "super-market"
+host: "localhost:4000"
+basePath: "/"
+tags:
+- name: "sales"
+  description: "Everything about your sales"
+- name: "details"
+  description: "Access to purchase and sales orders"
+- name: "purchase"
+  description: "Operations about purchse"
 schemes:
-  - http
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
+- "https"
+- "http"
 paths:
+  /items_details:
+    get:
+      tags:
+        - details
+      summary: ""
+      description: ""
+      operationId: getInventory
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+  /item_sales:
+    get:
+      tags:
+        - sales
+      summary: ""
+      description: ""
+      operationId: updatePetWithForm
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+  /item_sales/data:
+    get:
+      tags:
+        - sales
+      summary: Updates a pet in the store with form data
+      description: ""
+      operationId: updatePetWithForms
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+        "400":
+          description: Invalid Order
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+  /item_sales/insert:
+    post:
+      tags:
+        - sales
+      summary: Updates a pet in the store with form data
+      description: ""
+      operationId: updatePetWithFormsd
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: items_code
+          in: formData
+          description: "items_code"
+          required: true
+          type: string
+        - name: variety_code
+          in: formData
+          description: "variety_code"
+          required: true
+          type: string
+        - name: items_name
+          in: formData
+          description: "items_name"
+          required: true
+          type: string
+        - name: variety_name
+          in: formData
+          description: "variety_name"
+          required: true
+          type: string
+        - name: items_kg
+          in: formData
+          description: "items_kg"
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+        "400":
+          description: Invalid Order
+          schema:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int32
+
+# https://github.com/swagger-api/swagger-ui/issues/5778
+# https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject

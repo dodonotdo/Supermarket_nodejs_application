@@ -5,6 +5,11 @@ const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
 router.get("/", (req, res) => {
+  res.send({ success: true, message: "items inserted!" })
+});
+
+
+router.get("/data", (req, res) => {
   var queryOne = `SELECT * FROM item_sales`;
   readSql.query(queryOne, (error, results, fields) => {
     return error == "" ? res.send({ success: true, message: "items listed!", results }) : res.status(400).json({ success: false, message: error.code });
