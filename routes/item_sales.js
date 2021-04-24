@@ -27,6 +27,8 @@ router.post("/insert", (req, res) => {
   }
 });
 
+// --------------------------------------------------------------------------
+
 router.get("/", (req, res) => {
   var queryOne = `SELECT * FROM item_sales`;
   readSql.query(queryOne, (error, results, fields) => {

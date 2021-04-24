@@ -22,6 +22,8 @@ router.post("/insert", (req, res) => {
   }
 });
 
+// ---------------------------------------------------------------------------
+
 router.get("/", (req, res) => {
   var query = `SELECT * FROM items_details`;
   readSql.query(query, (error, results, fields) => {

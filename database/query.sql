@@ -18,7 +18,7 @@ CREATE TABLE item_purchased (
     total_kg_updated_amt INT,
     updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-CREATE TABLE Purchase_tracking_table (
+CREATE TABLE tracking_purchased(
     purchase_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,   
     variety_code VARCHAR(255) NOT NULL,
     items_name VARCHAR(255) NOT NULL,
