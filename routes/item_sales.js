@@ -7,7 +7,7 @@ const fuv = require("../helpers/findUndefinedValues");
 router.get("/", (req, res) => {
   var queryOne = `SELECT * FROM item_sales`;
   readSql.query(queryOne, (error, results, fields) => {
-    error == "" ? res.send({ success: true, message: "items listed!", results }) : res.status(400).json({ success: false, message: error.code });
+    return error == "" ? res.send({ success: true, message: "items listed!", results }) : res.status(400).json({ success: false, message: error.code });
   });
 });
 
@@ -29,7 +29,7 @@ router.post("/insert", (req, res) => {
       return  error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code });
     });
   } else {
-    return res.status(400).json({ success: false, message: "order not found!" });
+      return res.status(400).json({ success: false, message: "order not found!" });
   }
 });
 
