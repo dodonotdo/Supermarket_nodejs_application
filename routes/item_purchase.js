@@ -14,18 +14,15 @@ router.post("/insert", (req, res) => {
     total_kg: data.total_kg,
     per_kg_amt: data.per_kg_amt,
   };
+
   finaldatas = findUndefinedValues.findUndefinedValues(rData);
   if (finaldatas == "") {
     var query = `CALL insert_into_twoTables ('${rData.variety_code}','${rData.items_name}','${rData.variety_name}','${rData.total_kg}','${rData.per_kg_amt}')`;
     writeSql.query(query, (error, results, fields) => {
-      error == ""
-        ? res.send({ success: false, message: "order inserted!", results })
-        : res.status(400).json({ success: false, message: error.code });
+      return error == "" ? res.send({ success: false, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
     });
   } else {
-    return res
-      .status(404)
-      .json({ success: false, message: "order not found!" });
+      return res.status(404).json({ success: false, message: "order not found!" });
   }
 });
 
@@ -36,13 +33,12 @@ router.put("/update_rate", (req, res) => {
     variety_code: data.variety_code,
     per_kg_updated_amt: data.per_kg_updated_amt,
   };
+
   let update_rate_Datas = findUndefinedValues.findUndefinedValues(rData);
   if (update_rate_Datas == "") {
     var query = `UPDATE item_purchased SET per_kg_updated_amt='${rData.per_kg_updated_amt}' WHERE variety_code='${rData.variety_code}'`;
     writeSql.query(query, (error, results, fields) => {
-      error == ""
-        ? res.send({ success: false, message: "order inserted!", results })
-        : res.status(400).json({ success: false, message: error.code });
+      return error == "" ? res.send({ success: false, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
     });
   } else {
       return res.status(404).json({ success: false, message: "order not found!" });
@@ -68,11 +64,11 @@ router.post("/update", (req, res) => {
           new_total_kg = data.total_kg + balance_total_kg,
           combinationOldNewAmount = data.total_kg * data.total_kg_amt + OldKgAmt;
 
-        let queryTwo = `UPDATE  item_purchased SET total_kg='${new_total_kg}',per_kg_amt='${data.total_kg_amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${data.variety_name}'`;
+      let queryTwo = `UPDATE  item_purchased SET total_kg='${new_total_kg}',per_kg_amt='${data.total_kg_amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${data.variety_name}'`;
         
-        writeSql.query(queryTwo, (err, resultsTwo, fields) => {
-          error == "" ? res.send({ success: false, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
-        });
+      writeSql.query(queryTwo, (err, resultsTwo, fields) => {
+        return error == "" ? res.send({ success: false, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
+      });
 
     });
   } else {
@@ -83,7 +79,7 @@ router.post("/update", (req, res) => {
 router.get("/", (req, res) => {
   let query = `SELECT * FROM item_purchased`;
   readSql.query(query, (error, results, fields) => {
-    error == "" ? res.send({ success: false, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
+    return error == "" ? res.send({ success: false, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
   });
 });
 

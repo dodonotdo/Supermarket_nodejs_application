@@ -26,14 +26,11 @@ router.post("/insert", (req, res) => {
   if (finaldatas == "") {
     var queryOne = `call datas('${rData.variety_code}', '${rData.items_code}', '${rData.items_name}', '${rData.variety_name}', ${rData.items_kg})`;
     writeSql.query(queryOne, (error, results, fields) => {
-      error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code });
+      return  error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code });
     });
   } else {
     return res.status(400).json({ success: false, message: "order not found!" });
   }
 });
-
-
-
 
 module.exports = router;
