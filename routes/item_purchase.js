@@ -29,7 +29,6 @@ router.post("/insert", (req, res) => {
   }
 });
 
-// -----------------------------------------------------------------
 
 router.put("/update_rate", (req, res) => {
   let data = req.body;
