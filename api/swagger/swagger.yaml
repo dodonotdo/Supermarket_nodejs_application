@@ -13,8 +13,8 @@ tags:
 - name: "purchase"
   description: "Operations about purchse"
 schemes:
-- "https"
 - "http"
+- "https"
 paths:
   /items_details:
     get:
@@ -113,11 +113,11 @@ paths:
           description: "variety_name"
           required: true
           type: string
-        - name: items_kg
-          in: formData
-          description: "items_kg"
-          required: true
-          type: integer
+        # - name: items_kg
+        #   in: formData
+        #   description: "items_kg"
+        #   required: true
+        #   type: integer
       responses:
         "200":
           description: successful operation

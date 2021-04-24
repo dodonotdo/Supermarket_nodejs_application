@@ -25,7 +25,7 @@ router.post("/insert", (req, res) => {
     variety_name: data.variety_name,
     items_kg: data.items_kg,
   };
-
+console.log(rData)
   finaldatas = fuv.findUndefinedValues(rData);
 
   if (finaldatas == "") {
