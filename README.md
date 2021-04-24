@@ -1,5 +1,5 @@
 database name - supermarket_two
-tables name - item_purchased, item_sales,items_details
+tables name - item_purchased, item_sales,items_details, tracking_purchased
 
 
 ----------
