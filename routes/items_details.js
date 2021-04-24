@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const writesql = require("../config/writeSql");
 const readSql = require("../config/readSql");
-const findUndefinedValues = require("../models/findUndefinedValues");
+const findUndefinedValues = require("../helpers/findUndefinedValues");
 
 router.post("/insert", (req, res) => {
   let undefinedDatas = {
