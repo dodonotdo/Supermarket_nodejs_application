@@ -4,6 +4,13 @@ const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
+router.get("/", (req, res) => {
+  let query = `SELECT * FROM item_purchased`;
+  readSql.query(query, (error, results, fields) => {
+    return error == "" ? res.send({ success: true, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
+  });
+});
+
 
 router.post("/insert", (req, res) => {
   let data = req.body;
@@ -76,11 +83,5 @@ router.post("/update", (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
-  let query = `SELECT * FROM item_purchased`;
-  readSql.query(query, (error, results, fields) => {
-    return error == "" ? res.send({ success: true, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
-  });
-});
 
 module.exports = router;
