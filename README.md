@@ -1,24 +1,27 @@
-database name - supermarket_two
-tables name - item_purchased, item_sales,items_details, tracking_purchased
+database name
+
+    supermarket_two
+
+tables details: 
+
+    1. item_purchased
+    2. item_sales
+    3. items_details
+    4. tracking_purchased
 
 
 ----------
-    "scripts": {
-        "start": "npm run kill && nodemon app.js",
-        "kill": "kill -9 $(lsof -i :3000) &>/dev/null | exit 0"
-    }
+
+| ROUTE | METHOD | PARAMS | DESCRIPTION |
+| --------------- | --------------- | --------------- | --------------- |
+| / | GET | NO |  x....... |
+| /item_purchase | GET | NO | x....... |
+| /item_purchase/insert | POST | YES | x....... |
+| /item_purchase/update_rate | PUT | YES | x....... |
+| /item_purchase/update | POST | YES | x....... |
+| /items_details | GET | NO | x....... |
+| /items_details/insert | POST | YES | x....... |
+| /item_sales | GET | NO | x....... |
+| /item_sales/insert | POST | YES | x....... |
+
 ----------
-
-
-| ROUTE | METHOD | PARAMS |
-| --------------- | --------------- | --------------- |
-| / | GET | NO | 
-| /item_purchase | GET | NO |
-| /item_purchase/insert | POST | YES |
-| /item_purchase/update_rate | PUT | YES |
-| /item_purchase/update | POST | YES |
-| /items_details | GET | NO | 
-| /items_details/insert | POST | YES | 
-| /item_sales | GET | NO | 
-| /item_sales/insert | POST | YES | 
-
