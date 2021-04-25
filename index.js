@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 const route_item_purchase = require("./routes/route_item_purchase");
 const route_item_sales = require("./routes/route_item_sales");
-const route_items_details = require("./routes/route_item_details");
+const route_item_details = require("./routes/route_item_details");
 
 app.use("/item_purchase", route_item_purchase);
 app.use("/item_sales", route_item_sales);
