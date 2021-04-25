@@ -20,7 +20,7 @@ exports.post_item_details_insert = (req, res) => {
   let rData = {
     items_code: data.items_code,
     items_name: data.items_name,
-    variety_name: data.variety_name,
+    variety_name: data.variety_name == '' ? undefined : data.variety_name,
   };
 
   finalDatas = fuv.findUndefinedValues(rData);
