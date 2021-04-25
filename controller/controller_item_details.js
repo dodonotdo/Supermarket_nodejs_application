@@ -1,6 +1,6 @@
 const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
-const fuv = require("../helpers/strictFindUndefinedValues");
+const fuv = require("../helpers/findUndefinedValues");
 
 exports.get_item_details_root = (req, res) => {
   res.send({ success: true, message: "welcome to item details route" });
