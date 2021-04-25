@@ -13,7 +13,6 @@ exports.get_item_purchase_data = (req, res) => {
     });
   }
 
-/* post_item_purchase_insert */
 exports.post_item_purchase_insert = (req, res) => {
     let data = req.body;
     let rData = {
