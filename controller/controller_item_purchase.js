@@ -31,7 +31,7 @@ exports.post_item_purchase_insert = (req, res) => {
         return error == "" ? res.send({ success: true, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
       });
     } else {
-        return res.status(404).json({ success: false, message: "Bad request" });
+        return res.status(400).json({ success: false, message: "Bad request" });
     }
   }
 
@@ -49,7 +49,7 @@ exports.post_item_purchase_update_rate = (req, res) => {
         return error == "" ? res.send({ success: true, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
       });
     } else {
-        return res.status(404).json({ success: false, message: "Bad request" });
+        return res.status(400).json({ success: false, message: "Bad request" });
     }
   } 
 
@@ -80,6 +80,6 @@ exports.post_item_purchase_update = (req, res) => {
   
       });
     } else {
-        return res.status(404).json({ success: false, message: "Bad Requests" });
+        return res.status(400).json({ success: false, message: "Bad Requests" });
     }
   }
