@@ -1,6 +1,6 @@
 const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
-const fuv = require("../helpers/findUndefinedValues");
+const fuv = require("../helpers/strictFindUndefinedValues");
 
 
 
@@ -26,7 +26,7 @@ exports.post_item_sales_insert = (req, res) => {
       items_kg: data.items_kg,
     };
 
-    finaldatas = fuv.findUndefinedValues(rData);
+    finaldatas = fuv.strictFindUndefinedValues(rData);
   
     if (finaldatas == "") {
       var queryOne = `call datas('${rData.variety_code}', '${rData.items_code}', '${rData.items_name}', '${rData.variety_name}', ${rData.items_kg})`;

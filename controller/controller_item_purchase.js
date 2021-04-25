@@ -1,6 +1,6 @@
 const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
-const fuv = require("../helpers/findUndefinedValues");
+const fuv = require("../helpers/strictFindUndefinedValues");
 
 exports.get_item_purchase_root = (req, res) => {
     return res.send({ success: true, message: "welcome to purchase route!" });
@@ -24,7 +24,7 @@ exports.post_item_purchase_insert = (req, res) => {
       per_kg_amt: data.per_kg_amt,
     };
   
-    finaldatas = fuv.findUndefinedValues(rData);
+    finaldatas = fuv.strictFindUndefinedValues(rData);
     if (finaldatas == "") {
       var query = `CALL insert_into_twoTables ('${rData.variety_code}','${rData.items_name}','${rData.variety_name}','${rData.total_kg}','${rData.per_kg_amt}')`;
       writeSql.query(query, (error, results, fields) => {
@@ -42,7 +42,7 @@ exports.post_item_purchase_update_rate = (req, res) => {
       per_kg_updated_amt: data.per_kg_updated_amt,
     };
   
-    let update_rate_Datas = fuv.findUndefinedValues(rData);
+    let update_rate_Datas = fuv.strictFindUndefinedValues(rData);
     if (update_rate_Datas == "") {
       var query = `UPDATE item_purchased SET per_kg_updated_amt='${rData.per_kg_updated_amt}' WHERE variety_code='${rData.variety_code}'`;
       writeSql.query(query, (error, results, fields) => {
@@ -60,7 +60,7 @@ exports.post_item_purchase_update = (req, res) => {
       total_kg: req.body.total_kg,
       total_kg_amt: req.body.total_kg_amt,
     };
-    let updateDatas = fuv.findUndefinedValues(rData);
+    let updateDatas = fuv.strictFindUndefinedValues(rData);
     if (updateDatas == "") {
       var queryOne = `SELECT total_kg,per_kg_amt FROM item_purchased WHERE variety_name ='${rData.variety_name}'`;
       writeSql.query(queryOne, (error, results, fields) => {

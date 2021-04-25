@@ -1,6 +1,6 @@
 const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
-const fuv = require("../helpers/findUndefinedValues");
+const fuv = require("../helpers/strictFindUndefinedValues");
 
 exports.get_item_details_root = (req, res) => {
   res.send({ success: true, message: "welcome to item details route" });
@@ -23,7 +23,7 @@ exports.post_item_details_insert = (req, res) => {
     variety_name: data.variety_name == '' ? undefined : data.variety_name,
   };
 
-  finalDatas = fuv.findUndefinedValues(rData);
+  finalDatas = fuv.strictFindUndefinedValues(rData);
   
   if (finalDatas == "") {
     var query = `INSERT INTO items_details(items_code,items_name,variety_name) VALUES ('${rData.items_code}','${rData.items_name}','${rData.variety_name}')`;
