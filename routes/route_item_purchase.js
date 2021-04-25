@@ -7,10 +7,10 @@ router.get("/", controller_item_purchase.get_item_purchase_root);
 
 router.get("/data", controller_item_purchase.get_item_purchase_data);
 
-router.get("/insert", controller_item_purchase.post_item_purchase_insert);
+router.post("/insert", controller_item_purchase.post_item_purchase_insert);
 
-router.get("/update_rate", controller_item_purchase.post_item_purchase_update_rate);
+router.post("/update_rate", controller_item_purchase.post_item_purchase_update_rate);
 
-router.get("/update", controller_item_purchase.post_item_purchase_update);
+router.post("/update", controller_item_purchase.post_item_purchase_update);
 
 module.exports = router;

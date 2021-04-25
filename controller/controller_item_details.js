@@ -3,7 +3,7 @@ const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
 exports.get_item_details_root = (req, res) => {
-  res.send({ success: true, message: "items inserted!" });
+  res.send({ success: true, message: "welcome to item details route" });
 };
 
 
@@ -31,6 +31,6 @@ exports.post_item_details_insert = (req, res) => {
       return  error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code });
     });
   } else {
-      return res.status(400).json({ success: false, message: "order not found!" });
+      return res.status(400).json({ success: false, message: "Bad Request" });
   }
 }

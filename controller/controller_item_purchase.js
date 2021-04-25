@@ -3,7 +3,7 @@ const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
 exports.get_item_purchase_root = (req, res) => {
-    return res.send({ success: true, message: "welcome to purchase route" });
+    return res.send({ success: true, message: "welcome to purchase route!" });
 };
 
 exports.get_item_purchase_data = (req, res) => {
@@ -31,7 +31,7 @@ exports.post_item_purchase_insert = (req, res) => {
         return error == "" ? res.send({ success: true, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
       });
     } else {
-        return res.status(404).json({ success: false, message: "order not found!" });
+        return res.status(404).json({ success: false, message: "Bad request" });
     }
   }
 
@@ -49,7 +49,7 @@ exports.post_item_purchase_update_rate = (req, res) => {
         return error == "" ? res.send({ success: true, message: "order inserted!", results }) : res.status(400).json({ success: false, message: error.code });
       });
     } else {
-        return res.status(404).json({ success: false, message: "order not found!" });
+        return res.status(404).json({ success: false, message: "Bad request" });
     }
   } 
 
@@ -80,6 +80,6 @@ exports.post_item_purchase_update = (req, res) => {
   
       });
     } else {
-        return res.status(404).json({ success: false, message: "order not found!" });
+        return res.status(404).json({ success: false, message: "Bad Requests" });
     }
   }

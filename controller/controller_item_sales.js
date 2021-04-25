@@ -24,7 +24,7 @@ exports.post_item_sales_insert = (req, res) => {
       variety_name: data.variety_name,
       items_kg: data.items_kg,
     };
-  console.log(rData)
+
     finaldatas = fuv.findUndefinedValues(rData);
   
     if (finaldatas == "") {
@@ -33,6 +33,6 @@ exports.post_item_sales_insert = (req, res) => {
         return  error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code });
       });
     } else {
-        return res.status(400).json({ success: false, message: "order not found!" });
+        return res.status(400).json({ success: false, message: "Bad Request!" });
     }
   }
