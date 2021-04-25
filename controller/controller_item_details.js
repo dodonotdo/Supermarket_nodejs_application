@@ -2,7 +2,7 @@ const writesql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
-exports.get_item_details = (req, res) => {
+exports.get_item_details_root = (req, res) => {
   res.send({ success: true, message: "items inserted!" });
 };
 
@@ -15,7 +15,7 @@ exports.get_item_details_data = (req, res) => {
 }
 
 
-exports.get_item_details_insert = (req, res) => {
+exports.post_item_details_insert = (req, res) => {
   let data = req.body;
   let rData = {
     items_code: data.items_code,
