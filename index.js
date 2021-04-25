@@ -1,7 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-var cors = require("cors");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const app = express();
 
 app.use(cors());
@@ -11,11 +11,11 @@ app.use(cookieParser());
 
 const route_item_purchase = require("./routes/route_item_purchase");
 const route_item_sales = require("./routes/route_item_sales");
-const route_items_details = require("./routes/route_items_details");
+const route_items_details = require("./routes/route_item_details");
 
 app.use("/item_purchase", route_item_purchase);
 app.use("/item_sales", route_item_sales);
-app.use("/item_details", route_items_details);
+app.use("/item_details", route_item_details);
 
 app.get("/", (req, res) => {
   res.send("supermarket application designed");
