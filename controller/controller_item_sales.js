@@ -1,6 +1,7 @@
-const writesql = require("../config/writeSql");
+const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
+
 
 
 exports.get_item_sales_root = (req, res) => {

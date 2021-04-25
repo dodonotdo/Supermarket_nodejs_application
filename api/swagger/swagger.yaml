@@ -16,7 +16,7 @@ schemes:
 - "http"
 - "https"
 paths:
-  /items_details:
+  /item_details:
     get:
       tags:
         - details
@@ -27,7 +27,7 @@ paths:
         - application/json
       parameters: []
       responses:
-        "200":
+        200:
           description: successful operation
           schema:
             type: object
@@ -47,7 +47,7 @@ paths:
         - application/json
       parameters: []
       responses:
-        "200":
+        200:
           description: successful operation
           schema:
             type: object
@@ -67,14 +67,14 @@ paths:
         - application/json
       parameters: []
       responses:
-        "200":
+        200:
           description: successful operation
           schema:
             type: object
             additionalProperties:
               type: integer
               format: int32
-        "400":
+        400:
           description: Invalid Order
           schema:
             type: object
@@ -119,14 +119,14 @@ paths:
           required: true
           type: integer
       responses:
-        "200":
+        200:
           description: successful operation
           schema:
             type: object
             additionalProperties:
               type: integer
               format: int32
-        "400":
+        400:
           description: Invalid Order
           schema:
             type: object
