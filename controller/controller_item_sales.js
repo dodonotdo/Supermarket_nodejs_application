@@ -4,7 +4,7 @@ const fuv = require("../helpers/findUndefinedValues");
 
 
 exports.get_item_sales_root = (req, res) => {
-    return res.send({ success: true, message: "items inserted!" });
+    return res.send({ success: true, message: "welcome to sales route" });
 };
 
 
