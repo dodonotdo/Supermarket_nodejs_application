@@ -13,7 +13,7 @@ const strictFindUndefinedValues = (param) => {
   return undefinedVariable;
 };
 
-const nonStrictfindUndefinedValues = (param) => {
+const nonStrictFindUndefinedValues = (param) => {
   var params = Object.entries(param);
   let len = params.length;
   let undefinedVariable = [];
@@ -29,5 +29,5 @@ const nonStrictfindUndefinedValues = (param) => {
 
 module.exports = {
   strictFindUndefinedValues,
-  nonStrictfindUndefinedValues
+  nonStrictFindUndefinedValues
 }
