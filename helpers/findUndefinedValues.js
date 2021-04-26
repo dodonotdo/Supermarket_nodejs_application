@@ -32,7 +32,3 @@ module.exports = {
   strictFindUndefinedValues,
   nonStrictfindUndefinedValues
 }
-
-// console.log(test);
-// let an = nonStrictfindUndefinedValues(test);
-// console.log(an);
