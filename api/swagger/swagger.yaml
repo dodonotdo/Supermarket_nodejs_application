@@ -11,10 +11,10 @@ tags:
 - name: "details"
   description: "Access to purchase and sales orders"
 - name: "purchase"
-  description: "Operations about purchse"
+  description: "Everything about your purchase "
 schemes:
 - "http"
-- "https"
+# - "https"
 paths:
   /item_details:
     get:
@@ -22,7 +22,7 @@ paths:
         - details
       summary: ""
       description: ""
-      operationId: getInventory
+      operationId: getItemDetails
       produces:
         - application/json
       parameters: []
@@ -31,18 +31,192 @@ paths:
           description: successful operation
           schema:
             type: object
-            additionalProperties:
-              type: integer
-              format: int32
+  /item_details/data:
+    get:
+      tags:
+        - details
+      summary: ""
+      description: ""
+      operationId: getItemDetailsData
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+  /item_details/insert:
+    post:
+      tags:
+        - details
+      summary: ""
+      description: ""
+      operationId: getItemDetailsInsert
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+        - name: items_code
+          in: formData
+          description: "items_code"
+          required: true
+          type: string
+        - name: variety_name
+          in: formData
+          description: "variety_name"
+          required: true
+          type: string
+        - name: items_name
+          in: formData
+          description: "items_name"
+          required: true
+          type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+  /item_purchase:
+    get:
+      tags:
+        - purchase
+      summary: ""
+      description: ""
+      operationId: getItemPurchase
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+  /item_purchase/data:
+    get:
+      tags:
+        - purchase
+      summary: ""
+      description: ""
+      operationId: getItemPurchaseData
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+
+  /item_purchase/insert:
+    post:
+      tags:
+        - purchase
+      summary: ""
+      description: ""
+      operationId: getItemPurchaseInsert
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+        - name: variety_code
+          in: formData
+          description: "variety_code"
+          required: true
+          type: string
+        - name: variety_name
+          in: formData
+          description: "variety_name"
+          required: true
+          type: string
+        - name: items_name
+          in: formData
+          description: "items_name"
+          required: true
+          type: string
+        - name: total_kg
+          in: formData
+          description: "total_kg"
+          required: true
+          type: string
+        - name: per_kg_amt
+          in: formData
+          description: "per_kg_amt"
+          required: true
+          type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+  /item_purchase/update_rate:
+    post:
+      tags:
+        - purchase
+      summary: ""
+      description: ""
+      operationId: getItemPurchaseUpdateRate
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+        - name: variety_code
+          in: formData
+          description: "variety_code"
+          required: true
+          type: string
+        - name: per_kg_updated_amt
+          in: formData
+          description: "per_kg_updated_amt"
+          required: true
+          type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+  /item_purchase/update:
+    post:
+      tags:
+        - purchase
+      summary: ""
+      description: ""
+      operationId: getItemPurchaseUpdate
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+        - name: variety_name
+          in: formData
+          description: "variety_name"
+          required: true
+          type: string
+        - name: total_kg
+          in: formData
+          description: "total_kg"
+          required: true
+          type: string
+        - name: total_kg_amt
+          in: formData
+          description: "total_kg_amt"
+          required: true
+          type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
   /item_sales:
     get:
       tags:
         - sales
       summary: ""
       description: ""
-      operationId: updatePetWithForm
-      consumes:
-        - application/x-www-form-urlencoded
+      operationId: getItemSales
       produces:
         - application/json
       parameters: []
@@ -51,16 +225,13 @@ paths:
           description: successful operation
           schema:
             type: object
-            additionalProperties:
-              type: integer
-              format: int32
   /item_sales/data:
     get:
       tags:
         - sales
-      summary: Updates a pet in the store with form data
+      summary: ""
       description: ""
-      operationId: updatePetWithForms
+      operationId: getItemSalesData
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -71,23 +242,13 @@ paths:
           description: successful operation
           schema:
             type: object
-            additionalProperties:
-              type: integer
-              format: int32
-        400:
-          description: Invalid Order
-          schema:
-            type: object
-            additionalProperties:
-              type: integer
-              format: int32
   /item_sales/insert:
     post:
       tags:
         - sales
-      summary: Updates a pet in the store with form data
+      summary: ""
       description: ""
-      operationId: updatePetWithFormsd
+      operationId: getItemSalesInsert
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -123,16 +284,5 @@ paths:
           description: successful operation
           schema:
             type: object
-            additionalProperties:
-              type: integer
-              format: int32
-        400:
-          description: Invalid Order
-          schema:
-            type: object
-            additionalProperties:
-              type: integer
-              format: int32
-
 # https://github.com/swagger-api/swagger-ui/issues/5778
 # https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject

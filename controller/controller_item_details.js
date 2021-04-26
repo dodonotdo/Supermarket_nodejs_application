@@ -23,15 +23,12 @@ exports.post_item_details_insert = (req, res) => {
     items_name: data.items_name,
     variety_name: data.variety_name,
   };
-
-  console.log(rData);
   let finalDatas = fuv.strictFindUndefinedValues(rData);
-
   if (finalDatas == '') {
     var query = `INSERT INTO items_details(items_code,items_name,variety_name) VALUES ('${rData.items_code}','${rData.items_name}','${rData.variety_name}')`;
     writeSql.query(query, (error, results, fields) => {
       if (error) res.status(400).json({ success: false, message: error.code });;
-      res.send({ success: true, message: "items inserted!", results })
+      res.send({ success: true, message: "items inserted!", results: results.insertId })
     });
   }else {
       return res.status(400).json({ success: false, message: "Bad Request" });      

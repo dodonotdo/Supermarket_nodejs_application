@@ -17,6 +17,14 @@ app.use("/item_purchase", route_item_purchase);
 app.use("/item_sales", route_item_sales);
 app.use("/item_details", route_item_details);
 
+app.get("/", (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin","*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers","X-Requested-With,content-type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("supermarket application designed");
 });
