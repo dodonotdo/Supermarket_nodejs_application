@@ -31,3 +31,21 @@ call datas('RC0R1', 'RC001', 'rice', 'rnr', 10);
 
 drop procedure datas;
 
+--2.inserting the items into two tables (item_purchased,tracking_purchased)
+
+DELIMITER $$
+CREATE PROCEDURE insert_into_twoTables(
+	variety_code varchar(100),
+	items_name VARCHAR(255),
+	variety_name VARCHAR(255),
+	total_kg INT,
+	per_kg_amt INT
+)
+BEGIN
+	INSERT INTO item_purchased(variety_code, items_name, variety_name, total_kg, per_kg_amt, total_kg_amt, per_kg_updated_amt) 
+    VALUES(variety_code,items_name,variety_name,total_kg,per_kg_amt,(total_kg * per_kg_amt),per_kg_amt);
+	
+    INSERT INTO tracking_purchased(variety_code, items_name, variety_name, total_kg, per_kg_amt, total_kg_amt) 
+    VALUES(variety_code,items_name,variety_name,total_kg,per_kg_amt,(total_kg * per_kg_amt));
+END$$
+DELIMITER;
