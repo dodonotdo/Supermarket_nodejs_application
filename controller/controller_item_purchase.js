@@ -10,7 +10,7 @@ exports.get_item_purchase_getPurchaseData = (req, res) => {
   let query = `SELECT * FROM item_purchased`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
-    res.send({ success: true, message: "items inserted!", results });
+    res.send({ success: true, message: "purchase items showned!", results });
   });
 };
 
@@ -46,7 +46,7 @@ exports.post_item_purchase_update_rate = (req, res) => {
     var query = `UPDATE item_purchased SET per_kg_updated_amt='${rData.per_kg_updated_amt}' WHERE variety_code='${rData.variety_code}'`;
     writeSql.query(query, (error, results, fields) => {
       if (error) res.status(400).json({ success: false, message: error.code });
-      res.send({ success: true, message: "items inserted!", results });
+      res.send({ success: true, message: "items rate updated!", results });
     });
   } else {
     return res.status(400).json({ success: false, message: "Bad request" });
@@ -73,7 +73,7 @@ exports.post_item_purchase_update = (req, res) => {
       let queryTwo = `UPDATE  item_purchased SET total_kg='${new_total_kg}',per_kg_amt='${data.total_kg_amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${data.variety_name}'`;
         writeSql.query(queryTwo, (err, resultsTwo, fields) => {
         if (err) res.status(400).json({ success: false, message: err.code });
-        res.send({ success: true, message: "items inserted!", resultsTwo });
+        res.send({ success: true, message: "items details updated!", resultsTwo });
       });
     });
   } else {
@@ -92,14 +92,14 @@ exports.post_item_purchase_balanceDetails = (req, res) => {
       writeSql.query(queryOne, (errorOne, resultsOne, fields) => {
         console.log(resultsOne);
         if (errorOne) res.status(400).json({ success: false, message: errorOne});
-        res.send({ success: true, message: "items inserted!", resultsOne });
+        res.send({ success: true, message: "per items remaining_kg showned!", resultsOne });
       });
   } else{
     var queryTwo = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased;`;
       console.log(queryTwo);
       writeSql.query(queryTwo, (errorTwo, resultsTwo, fields) => {
         if (errorTwo) res.status(400).json({ success: false, message: errorTwo });
-        res.send({ success: true, message: "remaining_kg showned!", resultsTwo});
+        res.send({ success: true, message: "all items remaining_kgs showned!", resultsTwo});
       });
   }
 };

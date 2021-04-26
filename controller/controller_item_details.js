@@ -11,7 +11,7 @@ exports.get_item_details_getitemDetailsData = (req, res) => {
   var query = `SELECT * FROM items_details`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });;
-    res.send({ success: true, message: "items inserted!", results })
+    res.send({ success: true, message: "items showned!", results })
   });
 }
 

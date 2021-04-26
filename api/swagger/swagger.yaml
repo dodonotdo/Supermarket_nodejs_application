@@ -73,6 +73,11 @@ paths:
           description: "items_name"
           required: true
           type: string
+        - name: variety_code
+          in: formData
+          description: "variety_code"
+          required: true
+          type: string
       responses:
         200:
           description: successful operation
