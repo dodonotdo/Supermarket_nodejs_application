@@ -1,6 +1,11 @@
 const multer = require("multer");
 const sharp = require("sharp");
 
+exports.get_item_uploads_root = (req, res) => {
+  res.send({ success: true, message: "welcome to item details route" });
+};
+
+
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
