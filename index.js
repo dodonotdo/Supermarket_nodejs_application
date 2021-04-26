@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/public", express.static(__dirname + "/public"));
-
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const route_item_purchase = require("./routes/route_item_purchase");
 const route_item_sales = require("./routes/route_item_sales");

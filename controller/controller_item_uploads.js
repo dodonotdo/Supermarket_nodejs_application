@@ -45,7 +45,7 @@ const resizeImages = async (req, res, next) => {
       await sharp(file.buffer)
         .resize(640, 320)
         .toFormat("jpeg")
-        .jpeg({ quality: 90 })
+        .jpeg({ quality: 50 })
         .toFile(`uploads/${newFilename}`);
 
       req.body.images.push(newFilename);
@@ -64,11 +64,11 @@ const getResult = async (req, res) => {
     .map(image => "" + image + "")
     .join("");
 
-  return res.send(`Images were uploaded:${images}`);
+  return res.send(`Images were uploaded: in http://localhost:4000/uploads/${images}`);
 };
 
 module.exports = {
-  uploadImages: uploadImages,
-  resizeImages: resizeImages,
-  getResult: getResult
+  uploadImages,
+  resizeImages,
+  getResult
 };
