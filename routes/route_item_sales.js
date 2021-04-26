@@ -5,9 +5,9 @@ const controller_item_sales = require("../controller/controller_item_sales");
 
 router.get("/", controller_item_sales.get_item_sales_root);
 
-router.get("/data", controller_item_sales.get_item_sales_data);
+router.get("/getSalesData", controller_item_sales.get_item_sales_getSalesData);
 
-router.post("/insert", controller_item_sales.post_item_sales_insert);
+router.post("/salesOrder", controller_item_sales.post_item_sales_salesOrder);
 
 
 module.exports = router;

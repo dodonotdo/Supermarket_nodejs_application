@@ -12,7 +12,7 @@ const strictFindUndefinedValues = (param) => {
   }
   return undefinedVariable;
 };
-  
+
 
 function nonStrictfindUndefinedValues(param) {
   var params = Object.entries(param);

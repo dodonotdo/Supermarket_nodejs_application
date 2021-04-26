@@ -9,7 +9,7 @@ exports.get_item_sales_root = (req, res) => {
 };
 
 
-exports.get_item_sales_data = (req, res) => {
+exports.get_item_sales_getSalesData = (req, res) => {
     var queryOne = `SELECT * FROM item_sales`;
     readSql.query(queryOne, (error, results, fields) => {
       if (error) res.status(400).json({ success: false, message: error.code });;
@@ -17,7 +17,7 @@ exports.get_item_sales_data = (req, res) => {
   });
 }
 
-exports.post_item_sales_insert = (req, res) => {
+exports.post_item_sales_salesOrder = (req, res) => {
     let data = req.body;
     let rData = {
       items_code: data.items_code,

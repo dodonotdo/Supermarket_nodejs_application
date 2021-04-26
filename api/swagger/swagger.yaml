@@ -31,13 +31,13 @@ paths:
           description: successful operation
           schema:
             type: object
-  /item_details/data:
+  /item_details/getitemDetailsData:
     get:
       tags:
         - details
       summary: ""
       description: ""
-      operationId: getItemDetailsData
+      operationId: getItemDetailsGetitemDetailsData
       produces:
         - application/json
       parameters: []
@@ -46,13 +46,13 @@ paths:
           description: successful operation
           schema:
             type: object
-  /item_details/insert:
+  /item_details/itemDetailsOrder:
     post:
       tags:
         - details
       summary: ""
       description: ""
-      operationId: getItemDetailsInsert
+      operationId: getItemDetailsItemDetailsOrder
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -93,13 +93,13 @@ paths:
           description: successful operation
           schema:
             type: object
-  /item_purchase/data:
+  /item_purchase/getPurchaseData:
     get:
       tags:
         - purchase
       summary: ""
       description: ""
-      operationId: getItemPurchaseData
+      operationId: getItemPurchaseGetPurchaseData
       produces:
         - application/json
       parameters: []
@@ -109,13 +109,13 @@ paths:
           schema:
             type: object
 
-  /item_purchase/insert:
+  /item_purchase/purchaseOrder:
     post:
       tags:
         - purchase
       summary: ""
       description: ""
-      operationId: getItemPurchaseInsert
+      operationId: getItemPurchasePurchaseOrder
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -210,6 +210,28 @@ paths:
           description: successful operation
           schema:
             type: object
+  /item_purchase/balanceDetails:
+    post:
+      tags:
+        - purchase
+      summary: ""
+      description: ""
+      operationId: getItemPurchaseBalanceDetails
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+        - name: variety_name
+          in: formData
+          description: "variety_name"
+          required: false
+          type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
   /item_sales:
     get:
       tags:
@@ -225,13 +247,13 @@ paths:
           description: successful operation
           schema:
             type: object
-  /item_sales/data:
+  /item_sales/getSalesData:
     get:
       tags:
         - sales
       summary: ""
       description: ""
-      operationId: getItemSalesData
+      operationId: getItemSalesGetSalesData
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -242,13 +264,13 @@ paths:
           description: successful operation
           schema:
             type: object
-  /item_sales/insert:
+  /item_sales/salesOrder:
     post:
       tags:
         - sales
       summary: ""
       description: ""
-      operationId: getItemSalesInsert
+      operationId: getItemSalesSalesOrder
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -284,5 +306,7 @@ paths:
           description: successful operation
           schema:
             type: object
+
+
 # https://github.com/swagger-api/swagger-ui/issues/5778
 # https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject
