@@ -10,7 +10,8 @@ exports.get_item_details_root = (req, res) => {
 exports.get_item_details_data = (req, res) => {
   var query = `SELECT * FROM items_details`;
   readSql.query(query, (error, results, fields) => {
-    return error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code.toLowerCase() });
+    if (error) res.status(400).json({ success: false, message: error.code });;
+    res.send({ success: true, message: "items inserted!", results })
   });
 }
 
@@ -20,17 +21,18 @@ exports.post_item_details_insert = (req, res) => {
   let rData = {
     items_code: data.items_code,
     items_name: data.items_name,
-    variety_name: data.variety_name == '' ? undefined : data.variety_name,
+    variety_name: data.variety_name,
   };
 
-  finalDatas = fuv.strictFindUndefinedValues(rData);
-  
-  if (finalDatas == "") {
+  let finalDatas = fuv.strictFindUndefinedValues(rData);
+
+  if (finalDatas == '') {
     var query = `INSERT INTO items_details(items_code,items_name,variety_name) VALUES ('${rData.items_code}','${rData.items_name}','${rData.variety_name}')`;
     writeSql.query(query, (error, results, fields) => {
-      return  error == "" ? res.send({ success: true, message: "items inserted!", results }) : res.status(400).json({ success: false, message: error.code });
+      if (error) res.status(400).json({ success: false, message: error.code });;
+      res.send({ success: true, message: "items inserted!", results })
     });
-  } else {
-      return res.status(400).json({ success: false, message: "Bad Request" });
+  }else {
+      return res.status(400).json({ success: false, message: "Bad Request" });      
   }
 }
