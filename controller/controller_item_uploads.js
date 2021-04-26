@@ -1,0 +1,5 @@
+var express = require('express')
+var app = express()
+var multer  = require('multer')
+var upload = multer()
+console.log('file upload')

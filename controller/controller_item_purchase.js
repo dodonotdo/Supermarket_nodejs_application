@@ -2,11 +2,11 @@ const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
-exports.get_item_purchase_root = (req, res) => {
+get_item_purchase_root = (req, res) => {
   res.send({ success: true, message: "welcome to purchase route!" });
 };
 
-exports.get_item_purchase_getPurchaseData = (req, res) => {
+get_item_purchase_getPurchaseData = (req, res) => {
   let query = `SELECT * FROM item_purchased`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
@@ -14,7 +14,7 @@ exports.get_item_purchase_getPurchaseData = (req, res) => {
   });
 };
 
-exports.post_item_purchase_purchaseOrder = (req, res) => {
+post_item_purchase_purchaseOrder = (req, res) => {
   let data = req.body;
   let rData = {
     variety_code: data.variety_code,
@@ -35,7 +35,7 @@ exports.post_item_purchase_purchaseOrder = (req, res) => {
   }
 };
 
-exports.post_item_purchase_update_rate = (req, res) => {
+post_item_purchase_update_rate = (req, res) => {
   let data = req.body;
   let rData = {
     variety_code: data.variety_code,
@@ -53,7 +53,7 @@ exports.post_item_purchase_update_rate = (req, res) => {
   }
 };
 
-exports.post_item_purchase_update = (req, res) => {
+post_item_purchase_update = (req, res) => {
   let data = req.body;
   let rData = {
     variety_name: data.variety_name,
@@ -81,25 +81,32 @@ exports.post_item_purchase_update = (req, res) => {
   }
 };
 
-exports.post_item_purchase_balanceDetails = (req, res) => {
+post_item_purchase_balanceDetails = (req, res) => {
   let data = req.body;
   var rData = { variety_name: data.variety_name };
   let remainingDatas = fuv.strictFindUndefinedValues(rData);
-  console.log(remainingDatas);
   if (remainingDatas == "") {
       var queryOne = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased WHERE variety_name = '${rData.variety_name}'`;
-      console.log(queryOne);
       writeSql.query(queryOne, (errorOne, resultsOne, fields) => {
-        console.log(resultsOne);
         if (errorOne) res.status(400).json({ success: false, message: errorOne});
         res.send({ success: true, message: "per items remaining_kg showned!", resultsOne });
       });
   } else{
     var queryTwo = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased;`;
-      console.log(queryTwo);
       writeSql.query(queryTwo, (errorTwo, resultsTwo, fields) => {
         if (errorTwo) res.status(400).json({ success: false, message: errorTwo });
         res.send({ success: true, message: "all items remaining_kgs showned!", resultsTwo});
       });
   }
 };
+
+
+module.exports = {
+  get_item_purchase_root,
+  get_item_purchase_getPurchaseData,
+  post_item_purchase_purchaseOrder,
+  post_item_purchase_update_rate,
+  post_item_purchase_update,
+  post_item_purchase_balanceDetails
+
+}

@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use("/public", express.static(__dirname + "/public"));
+
+
 const route_item_purchase = require("./routes/route_item_purchase");
 const route_item_sales = require("./routes/route_item_sales");
 const route_item_details = require("./routes/route_item_details");
