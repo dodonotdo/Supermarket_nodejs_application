@@ -1,10 +1,6 @@
 const multer = require("multer");
 const sharp = require("sharp");
 
-exports.get_item_uploads_root = (req, res) => {
-  res.send({ success: true, message: "welcome to item details route" });
-};
-
 
 const multerStorage = multer.memoryStorage();
 
@@ -44,7 +40,7 @@ const resizeImages = async (req, res, next) => {
   await Promise.all(
     req.files.map(async file => {
       const filename = file.originalname.replace(/\..+$/, "");
-      const newFilename = `bezkoder-${filename}-${Date.now()}.jpeg`;
+      const newFilename = `${filename}-${Date.now()}.jpeg`;
 
       await sharp(file.buffer)
         .resize(640, 320)

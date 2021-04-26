@@ -15,10 +15,12 @@ app.use("/public", express.static(__dirname + "/public"));
 const route_item_purchase = require("./routes/route_item_purchase");
 const route_item_sales = require("./routes/route_item_sales");
 const route_item_details = require("./routes/route_item_details");
+const route_item_uploads = require("./routes/route_item_uploads");
 
 app.use("/item_purchase", route_item_purchase);
 app.use("/item_sales", route_item_sales);
 app.use("/item_details", route_item_details);
+app.use("/item_uploads", route_item_uploads);
 
 app.get("/", (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin","*");
