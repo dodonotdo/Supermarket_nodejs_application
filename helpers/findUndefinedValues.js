@@ -5,8 +5,8 @@ const strictFindUndefinedValues = (param) => {
   for (let i = 0; i < len; i++) {
     let values = params[i];
     var a = values.indexOf(undefined);
-
-    if (a === 1 || values[i] == '') {
+    var b = params[i][1].replace(/\s+/g, '').trim()
+    if (a === 1 || b == "") {
       undefinedVariable.push(values[0]);
     }
   }

@@ -24,6 +24,7 @@ exports.post_item_details_insert = (req, res) => {
     variety_name: data.variety_name,
   };
 
+  console.log(rData);
   let finalDatas = fuv.strictFindUndefinedValues(rData);
 
   if (finalDatas == '') {
