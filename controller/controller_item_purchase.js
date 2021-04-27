@@ -71,9 +71,13 @@ post_item_purchase_update = (req, res) => {
         new_total_kg = data.total_kg + balance_total_kg,
         combinationOldNewAmount = data.total_kg * data.total_kg_amt + OldKgAmt;
       let queryTwo = `UPDATE  item_purchased SET total_kg='${new_total_kg}',per_kg_amt='${data.total_kg_amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${data.variety_name}'`;
-        writeSql.query(queryTwo, (err, resultsTwo, fields) => {
+      writeSql.query(queryTwo, (err, resultsTwo, fields) => {
         if (err) res.status(400).json({ success: false, message: err.code });
-        res.send({ success: true, message: "items details updated!", resultsTwo });
+        res.send({
+          success: true,
+          message: "items details updated!",
+          resultsTwo,
+        });
       });
     });
   } else {
@@ -86,20 +90,27 @@ post_item_purchase_balanceDetails = (req, res) => {
   var rData = { variety_name: data.variety_name };
   let remainingDatas = fuv.strictFindUndefinedValues(rData);
   if (remainingDatas == "") {
-      var queryOne = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased WHERE variety_name = '${rData.variety_name}'`;
-      writeSql.query(queryOne, (errorOne, resultsOne, fields) => {
-        if (errorOne) res.status(400).json({ success: false, message: errorOne});
-        res.send({ success: true, message: "per items remaining_kg showned!", resultsOne });
+    var queryOne = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased WHERE variety_name = '${rData.variety_name}'`;
+    writeSql.query(queryOne, (errorOne, resultsOne, fields) => {
+      if (errorOne) res.status(400).json({ success: false, message: errorOne });
+      res.send({
+        success: true,
+        message: "per items remaining_kg showned!",
+        resultsOne,
       });
-  } else{
+    });
+  } else {
     var queryTwo = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased;`;
-      writeSql.query(queryTwo, (errorTwo, resultsTwo, fields) => {
-        if (errorTwo) res.status(400).json({ success: false, message: errorTwo });
-        res.send({ success: true, message: "all items remaining_kgs showned!", resultsTwo});
+    writeSql.query(queryTwo, (errorTwo, resultsTwo, fields) => {
+      if (errorTwo) res.status(400).json({ success: false, message: errorTwo });
+      res.send({
+        success: true,
+        message: "all items remaining_kgs showned!",
+        resultsTwo,
       });
+    });
   }
 };
-
 
 module.exports = {
   get_item_purchase_root,
@@ -107,6 +118,5 @@ module.exports = {
   post_item_purchase_purchaseOrder,
   post_item_purchase_update_rate,
   post_item_purchase_update,
-  post_item_purchase_balanceDetails
-
-}
+  post_item_purchase_balanceDetails,
+};
