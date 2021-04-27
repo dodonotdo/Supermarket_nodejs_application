@@ -6,7 +6,7 @@ router.post(
   "/multipleUpload",
   uploadController.uploadImages,
   uploadController.resizeImages,
-  uploadController.getResult
+  uploadController.post_item_upload_multipleUpload
 );
 
 module.exports = router;
