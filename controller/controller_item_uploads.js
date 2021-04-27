@@ -35,7 +35,8 @@ const resizeImages = async (req, res, next) => {
   req.body.images = [];
   await Promise.all(
     req.files.map(async file => {
-      const newFilename = `uploads-${Date.now()}.jpeg`;
+      let fileDate = new Date().toISOString().split('T')[0];
+      const newFilename = `uploads-${fileDate}-${Date.now()}.jpeg`;
       await sharp(file.buffer)
         .resize(640, 320)
         .toFormat("jpeg")
