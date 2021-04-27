@@ -55,12 +55,22 @@ get_item_details_itemsDetailsOnly = (req, res) => {
 };
 
 post_item_details_singleItemsDetailsWithVariety = (req, res) => {
-  let items_name = req.body.items_name;
-  let query = `SELECT variety_code,variety_name FROM items_details WHERE items_name='${items_name}'`;
-  readSql.query(query, (error, results, fields) => {
-    if (error) res.status(400).json({ success: false, message: error.code });
-    res.send({ success: true, message: "items details only showned", results });
-  });
+  let data = req.body;
+  let rData = { items_name: data.items_name };
+  let finalDatas = fuv.strictFindUndefinedValues(rData);
+  if (finalDatas == "") {
+    let query = `SELECT variety_code,variety_name FROM items_details WHERE items_name='${rData.items_name}'`;
+    readSql.query(query, (error, results, fields) => {
+      if (error) res.status(400).json({ success: false, message: error.code });
+      res.send({
+        success: true,
+        message: "items details only showned",
+        results,
+      });
+    });
+  } else {
+    return res.status(400).json({ success: false, message: "Bad Request" });
+  }
 };
 
 module.exports = {

@@ -2,11 +2,11 @@ const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
-exports.get_item_sales_root = (req, res) => {
+get_item_sales_root = (req, res) => {
   res.send({ success: true, message: "welcome to sales route" });
 };
 
-exports.get_item_sales_getSalesData = (req, res) => {
+get_item_sales_getSalesData = (req, res) => {
   var queryOne = `SELECT * FROM item_sales`;
   readSql.query(queryOne, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
@@ -14,7 +14,7 @@ exports.get_item_sales_getSalesData = (req, res) => {
   });
 };
 
-exports.post_item_sales_salesOrder = (req, res) => {
+post_item_sales_salesOrder = (req, res) => {
   let data = req.body;
   let rData = {
     items_code: data.items_code,
@@ -33,4 +33,10 @@ exports.post_item_sales_salesOrder = (req, res) => {
   } else {
     return res.status(400).json({ success: false, message: "Bad Request!" });
   }
+};
+
+module.exports = {
+  get_item_sales_root,
+  get_item_sales_getSalesData,
+  post_item_sales_salesOrder,
 };

@@ -31,7 +31,6 @@ const uploadImages = (req, res, next) => {
 
 const resizeImages = async (req, res, next) => {
   if (!req.files) return next();
-
   req.body.images = [];
   await Promise.all(
     req.files.map(async (file) => {
@@ -45,7 +44,6 @@ const resizeImages = async (req, res, next) => {
       req.body.images.push(newFilename);
     })
   );
-
   next();
 };
 
