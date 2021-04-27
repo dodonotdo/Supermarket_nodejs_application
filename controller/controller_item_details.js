@@ -28,10 +28,29 @@ exports.post_item_details_itemDetailsOrder = (req, res) => {
   if (finalDatas == '') {
     var query = `INSERT INTO items_details(items_code,variety_code,items_name,variety_name) VALUES ('${rData.items_code}','${rData.variety_code}','${rData.items_name}','${rData.variety_name}')`;
     writeSql.query(query, (error, results, fields) => {
-      if (error) res.status(400).json({ success: false, message: error.code });;
+      if (error) res.status(400).json({ success: false, message: error.code });
       res.send({ success: true, message: "items inserted!", results: results.insertId })
     });
   }else {
       return res.status(400).json({ success: false, message: "Bad Request" });      
   }
 }
+
+exports.get_item_details_varietyDetails = (req, res) => {
+  let query = `SELECT variety_code,variety_name FROM items_details`;
+  readSql.query(query, (error, results, fields) => {
+    if (error) res.status(400).json({ success: false, message: error.code });
+    res.send({ success: true, message: "variety details showned",results });
+  })
+}
+
+
+exports.get_item_details_itemsDetailsOnly = (req, res) => {
+  let query = `SELECT items_name,items_code FROM items_details GROUP BY items_name,items_code`;
+  readSql.query(query, (error, results, fields) => {
+    if (error) res.status(400).json({ success: false, message: error.code });
+    res.send({ success: true, message: "variety details showned",results });
+  })
+}
+
+

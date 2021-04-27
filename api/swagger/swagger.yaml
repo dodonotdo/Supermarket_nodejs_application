@@ -46,6 +46,36 @@ paths:
           description: successful operation
           schema:
             type: object
+  /item_details/varietyDetails:
+    get:
+      tags:
+        - details
+      summary: ""
+      description: ""
+      operationId: getItemDetailsVarietyDetails
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
+  /item_details/itemsDetailsOnly:
+    get:
+      tags:
+        - details
+      summary: ""
+      description: ""
+      operationId: getItemDetailsItemsDetailsOnly
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
   /item_details/itemDetailsOrder:
     post:
       tags:
