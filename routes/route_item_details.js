@@ -13,5 +13,6 @@ router.get("/varietyDetails", controller_item_details.get_item_details_varietyDe
 
 router.post("/itemDetailsOrder", controller_item_details.post_item_details_itemDetailsOrder);
 
+router.post("/singleItemsDetailsWithVariety", controller_item_details.post_item_details_singleItemsDetailsWithVariety);
 
 module.exports = router;
