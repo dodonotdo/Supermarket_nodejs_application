@@ -3,7 +3,7 @@ const router = express.Router();
 const uploadController = require("../controller/controller_item_uploads");
 
 router.post(
-  "/multiple-upload",
+  "/multipleUpload",
   uploadController.uploadImages,
   uploadController.resizeImages,
   uploadController.getResult

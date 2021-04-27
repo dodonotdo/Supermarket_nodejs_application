@@ -311,7 +311,28 @@ paths:
           description: successful operation
           schema:
             type: object
-
+  /item_uploads/multipleUpload:
+    post:
+      tags:
+        - details
+      summary: ""
+      description: ""
+      operationId: postMultipleUpload
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: images
+          in: formData
+          description: "upload the item images"
+          required: true
+          type: file
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: object
 
 # https://github.com/swagger-api/swagger-ui/issues/5778
 # https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject
