@@ -39,10 +39,11 @@ app.get("/", (req, res) => {
   res.send("supermarket application designed");
 });
 
-app.use(function(req, res, next) {
-  res.status(404).send('404 page');
-});
 
+
+app.use(function(req, res, next) {
+  res.status(404).send('<h1>page not found</h1>');
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
