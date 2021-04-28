@@ -2,12 +2,13 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const morgan = require("morgan")
 const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan('tiny'));
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -24,6 +25,7 @@ app.use("/item_details", route_item_details);
 app.use("/item_uploads", route_item_uploads);
 
 
+
 app.get("/", (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin","*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -32,9 +34,15 @@ app.get("/", (req, res, next) => {
   next();
 });
 
+
 app.get("/", (req, res) => {
   res.send("supermarket application designed");
 });
+
+app.use(function(req, res, next) {
+  res.status(404).send('404 page');
+});
+
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
