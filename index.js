@@ -4,11 +4,17 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan")
 const app = express();
+
+const helmet = require('helmet');
+
+
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(morgan('tiny'));
+app.use(morgan('combined'));
+
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/uploads", express.static(__dirname + "/uploads"));
