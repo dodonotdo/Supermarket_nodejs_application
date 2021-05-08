@@ -14,7 +14,7 @@ const strictFindUndefinedValues = (param) => {
 };
 
 
-function nonStrictfindUndefinedValues(param) {
+const nonStrictfindUndefinedValues = (param) => {
   var params = Object.entries(param);
   let len = params.length;
   let undefinedVariable = [];
@@ -22,7 +22,7 @@ function nonStrictfindUndefinedValues(param) {
     let values = params[i];
     var a = values.indexOf(undefined);
     if (a === 1) {
-      let and = undefinedVariable.push(values);
+      undefinedVariable.push(values);
     }
   }
   return undefinedVariable;

@@ -2,11 +2,11 @@ const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
-get_item_purchase_root = (req, res) => {
+const get_item_purchase_root = (req, res) => {
   res.send({ success: true, message: "welcome to purchase route!" });
 };
 
-get_item_purchase_getPurchaseData = (req, res) => {
+const get_item_purchase_getPurchaseData = (req, res) => {
   let query = `SELECT * FROM item_purchased`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
@@ -14,7 +14,7 @@ get_item_purchase_getPurchaseData = (req, res) => {
   });
 };
 
-post_item_purchase_purchaseOrder = (req, res) => {
+const post_item_purchase_purchaseOrder = (req, res) => {
   let data = req.body;
   let rData = {
     variety_code: data.variety_code,
@@ -23,7 +23,7 @@ post_item_purchase_purchaseOrder = (req, res) => {
     total_kg: data.total_kg,
     per_kg_amt: data.per_kg_amt,
   };
-  finaldatas = fuv.strictFindUndefinedValues(rData);
+  let finaldatas = fuv.strictFindUndefinedValues(rData);
   if (finaldatas == "") {
     var query = `CALL insert_into_twoTables ('${rData.variety_code}','${rData.items_name}','${rData.variety_name}','${rData.total_kg}','${rData.per_kg_amt}')`;
     writeSql.query(query, (error, results, fields) => {
@@ -35,7 +35,7 @@ post_item_purchase_purchaseOrder = (req, res) => {
   }
 };
 
-post_item_purchase_update_rate = (req, res) => {
+const post_item_purchase_update_rate = (req, res) => {
   let data = req.body;
   let rData = {
     variety_code: data.variety_code,
@@ -44,7 +44,7 @@ post_item_purchase_update_rate = (req, res) => {
   let update_rate_Datas = fuv.strictFindUndefinedValues(rData);
   if (update_rate_Datas == "") {
     var query = `UPDATE item_purchased SET per_kg_updated_amt='${rData.per_kg_updated_amt}' WHERE variety_code='${rData.variety_code}'`;
-    writeSql.query(query, (error, results, fields) => {
+    writeSql.query(query, (error, results) => {
       if (error) res.status(400).json({ success: false, message: error.code });
       res.send({ success: true, message: "items rate updated!", results });
     });
@@ -53,7 +53,7 @@ post_item_purchase_update_rate = (req, res) => {
   }
 };
 
-post_item_purchase_update = (req, res) => {
+const post_item_purchase_update = (req, res) => {
   let data = req.body;
   let rData = {
     variety_name: data.variety_name,
@@ -63,7 +63,7 @@ post_item_purchase_update = (req, res) => {
   let updateDatas = fuv.strictFindUndefinedValues(rData);
   if (updateDatas == "") {
     var queryOne = `SELECT total_kg,per_kg_amt FROM item_purchased WHERE variety_name ='${rData.variety_name}'`;
-    writeSql.query(queryOne, (error, results, fields) => {
+    writeSql.query(queryOne, (error, results) => {
       if (error) return res.send(error.sql);
       let balance_total_kg = results[0].total_kg,
         lastTimePurchaseAmt = results[0].per_kg_amt,
@@ -71,7 +71,7 @@ post_item_purchase_update = (req, res) => {
         new_total_kg = data.total_kg + balance_total_kg,
         combinationOldNewAmount = data.total_kg * data.total_kg_amt + OldKgAmt;
       let queryTwo = `UPDATE  item_purchased SET total_kg='${new_total_kg}',per_kg_amt='${data.total_kg_amt}', total_kg_amt='${combinationOldNewAmount}' WHERE variety_name ='${data.variety_name}'`;
-      writeSql.query(queryTwo, (err, resultsTwo, fields) => {
+      writeSql.query(queryTwo, (err, resultsTwo) => {
         if (err) res.status(400).json({ success: false, message: err.code });
         res.send({
           success: true,
@@ -85,13 +85,13 @@ post_item_purchase_update = (req, res) => {
   }
 };
 
-post_item_purchase_balanceDetails = (req, res) => {
+const post_item_purchase_balanceDetails = (req, res) => {
   let data = req.body;
   var rData = { variety_name: data.variety_name };
   let remainingDatas = fuv.strictFindUndefinedValues(rData);
   if (remainingDatas == "") {
     var queryOne = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased WHERE variety_name = '${rData.variety_name}'`;
-    writeSql.query(queryOne, (errorOne, resultsOne, fields) => {
+    writeSql.query(queryOne, (errorOne, resultsOne) => {
       if (errorOne) res.status(400).json({ success: false, message: errorOne });
       res.send({
         success: true,
@@ -101,7 +101,7 @@ post_item_purchase_balanceDetails = (req, res) => {
     });
   } else {
     var queryTwo = `SELECT variety_code, items_name, variety_name ,total_kg AS balance_kg FROM item_purchased;`;
-    writeSql.query(queryTwo, (errorTwo, resultsTwo, fields) => {
+    writeSql.query(queryTwo, (errorTwo, resultsTwo) => {
       if (errorTwo) res.status(400).json({ success: false, message: errorTwo });
       res.send({
         success: true,

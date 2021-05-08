@@ -2,11 +2,11 @@ const writeSql = require("../config/writeSql");
 const readSql = require("../config/readSql");
 const fuv = require("../helpers/findUndefinedValues");
 
-get_item_details_root = (req, res) => {
+const get_item_details_root = (req, res) => {
   res.send({ success: true, message: "welcome to item details route" });
 };
 
-get_item_details_getitemDetailsData = (req, res) => {
+const get_item_details_getitemDetailsData = (req, res) => {
   var query = `SELECT * FROM items_details`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
@@ -14,7 +14,7 @@ get_item_details_getitemDetailsData = (req, res) => {
   });
 };
 
-post_item_details_itemDetailsOrder = (req, res) => {
+const post_item_details_itemDetailsOrder = (req, res) => {
   let data = req.body;
   let rData = {
     items_code: data.items_code,
@@ -38,7 +38,7 @@ post_item_details_itemDetailsOrder = (req, res) => {
   }
 };
 
-get_item_details_varietyDetails = (req, res) => {
+const get_item_details_varietyDetails = (req, res) => {
   let query = `SELECT variety_code,variety_name FROM items_details`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
@@ -46,7 +46,7 @@ get_item_details_varietyDetails = (req, res) => {
   });
 };
 
-get_item_details_itemsDetailsOnly = (req, res) => {
+const get_item_details_itemsDetailsOnly = (req, res) => {
   let query = `SELECT items_name,items_code FROM items_details GROUP BY items_name,items_code`;
   readSql.query(query, (error, results, fields) => {
     if (error) res.status(400).json({ success: false, message: error.code });
@@ -54,7 +54,7 @@ get_item_details_itemsDetailsOnly = (req, res) => {
   });
 };
 
-post_item_details_singleItemsDetailsWithVariety = (req, res) => {
+const post_item_details_singleItemsDetailsWithVariety = (req, res) => {
   let data = req.body;
   let rData = { items_name: data.items_name };
   let finalDatas = fuv.strictFindUndefinedValues(rData);
