@@ -26,7 +26,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 
 
-app.get("/", (req, res) => res.send("supermarket application designed"));
+app.get("/", (req, res) => res.send("Welcome to the Supermarket Application!"));
 
 app.use("/item_purchase", route_item_purchase);
 app.use("/item_sales", route_item_sales);
